@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-class ScrollWatcher {
+export class ScrollWatcher {
   constructor() {
     this._locked = false;
 

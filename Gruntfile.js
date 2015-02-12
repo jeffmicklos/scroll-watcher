@@ -14,7 +14,8 @@ module.exports = function(grunt) {
     },
     '6to5': {
       options: {
-        sourceMap: false
+        sourceMap: false,
+        modules: 'amd'
       },
       dist: {
         files: {
