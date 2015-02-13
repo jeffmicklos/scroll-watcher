@@ -1,13 +1,25 @@
 import $ from 'jquery';
 
-export class ScrollWatcher {
+export default class ScrollWatcher {
   constructor() {
     this._locked = false;
+    this.SCROLL_DURATION = 1200
 
-    $(document).on('mousewheel DOMMouseScroll', () => {
-      this.onMouseWheel();
+    $(document).on('mousewheel DOMMouseScroll', (event) => {
+      this.onMouseWheel(event);
     });
+  }
 
+  on(event, callback) {
+    $(this).on(event, callback);
+  }
+
+  off(event, callback) {
+    $(this).off(event, callback);
+  }
+
+  trigger(event) {
+    $(this).trigger(event);
   }
 
   onMouseWheel(event) {
@@ -33,5 +45,4 @@ export class ScrollWatcher {
     }, this.SCROLL_DURATION);
 
   }
-
 }
