@@ -4,7 +4,7 @@ export class ScrollWatcher {
   constructor() {
     this._locked = false;
     this.squelched = false;
-    this.SCROLL_DURATION = 1200
+    this.SCROLL_DURATION = 1200;
 
     this.callbacks = {
       'scrollup':   $.Callbacks(),
@@ -38,7 +38,7 @@ export class ScrollWatcher {
     if(this._locked || this.squelched) {
       return;
     }
-    
+
     var delta = event.originalEvent.wheelDeltaY || -1 * event.originalEvent.deltaY;
 
     event.preventDefault();
