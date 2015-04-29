@@ -27,46 +27,57 @@
 
   var ScrollWatcher = (function () {
     function ScrollWatcher() {
-      var _this = this;
-
       _classCallCheck(this, ScrollWatcher);
 
       this._locked = false;
+      this.squelched = false;
       this.SCROLL_DURATION = 1200;
 
-      _$(document).on('mousewheel DOMMouseScroll', function (event) {
-        _this.onMouseWheel(event);
-      });
+      this.callbacks = {
+        scrollup: _$.Callbacks(),
+        scrolldown: _$.Callbacks()
+      };
+
+      _$(document).on('mousewheel DOMMouseScroll', _$.proxy(this.onMouseWheel, this));
     }
 
     _createClass(ScrollWatcher, [{
+      key: 'destroy',
+      value: function destroy() {
+        for (var eventKey in this.callbacks) {
+          this.callbacks[eventKey].empty();
+        }
+
+        _$(document).off('mousewheel DOMMouseScroll', _$.proxy(this.onMouseWheel, this));
+      }
+    }, {
       key: 'on',
       value: function on(event, callback) {
-        _$(this).on(event, callback);
+        this.callbacks[event].add(callback);
       }
     }, {
       key: 'off',
       value: function off(event, callback) {
-        _$(this).off(event, callback);
+        this.callbacks[event].empty();
       }
     }, {
       key: 'trigger',
       value: function trigger(event) {
-        _$(this).trigger(event);
+        this.callbacks[event].fire(event);
       }
     }, {
       key: 'onMouseWheel',
       value: function onMouseWheel(event) {
-        var _this2 = this;
+        var _this = this;
+
+        if (this._locked || this.squelched) {
+          return;
+        }
 
         var delta = event.originalEvent.wheelDeltaY || -1 * event.originalEvent.deltaY;
 
         event.preventDefault();
         event.stopPropagation();
-
-        if (this._locked) {
-          return;
-        }
 
         this._locked = true;
 
@@ -77,7 +88,7 @@
         }
 
         setTimeout(function () {
-          _this2._locked = false;
+          _this._locked = false;
         }, this.SCROLL_DURATION);
       }
     }]);
