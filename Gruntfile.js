@@ -12,10 +12,10 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
-    '6to5': {
+    babel: {
       options: {
         sourceMap: false,
-        modules: 'amd'
+        modules: 'umd'
       },
       dist: {
         files: {
@@ -25,6 +25,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['6to5', 'uglify']);
+  grunt.registerTask('default', ['babel', 'uglify']);
 
 };

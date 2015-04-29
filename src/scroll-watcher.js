@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export default class ScrollWatcher {
+export class ScrollWatcher {
   constructor() {
     this._locked = false;
     this.SCROLL_DURATION = 1200
