@@ -1,10 +1,10 @@
 import $ from 'jquery';
 
-export default class ScrollWatcher {
-  constructor() {
+export default class {
+  constructor({scrollDuration=1200}={}) {
     this._locked = false;
     this.squelched = false;
-    this.SCROLL_DURATION = 1200;
+    this.scrollDuration = scrollDuration;
 
     this.callbacks = {
       'scrollup':   $.Callbacks(),
@@ -54,7 +54,7 @@ export default class ScrollWatcher {
 
     setTimeout(() => {
       this._locked = false;
-    }, this.SCROLL_DURATION);
+    }, this.scrollDuration);
 
   }
 }

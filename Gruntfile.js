@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
@@ -15,14 +17,17 @@ module.exports = function(grunt) {
     babel: {
       options: {
         sourceMap: false,
-        modules: 'umd',
-        moduleId: 'ScrollWatcher'
+        modules: 'umd'
       },
       dist: {
         files: {
           'dist/<%= pkg.name %>.js': 'src/<%= pkg.name %>.js'
         }
       }
+    },
+    watch: {
+      files: ['src/scroll-watcher.js'],
+      tasks: ['default']
     }
   });
 
