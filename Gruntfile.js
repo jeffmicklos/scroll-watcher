@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     babel: {
       options: {
         sourceMap: false,
-        modules: 'umd'
+        modules: 'umd',
+        moduleId: 'ScrollWatcher'
       },
       dist: {
         files: {
