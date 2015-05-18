@@ -35,14 +35,14 @@ export default class {
   }
 
   onMouseWheel(event) {
-    if(this._locked || this.squelched) {
-      return;
-    }
-
     var delta = event.originalEvent.wheelDeltaY || -1 * event.originalEvent.deltaY;
 
     event.preventDefault();
     event.stopPropagation();
+
+    if(this._locked || this.squelched) {
+      return;
+    }
 
     this._locked = true;
 
